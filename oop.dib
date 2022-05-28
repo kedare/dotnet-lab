@@ -1,0 +1,21 @@
+#!markdown
+
+# .NET OOP
+
+#!markdown
+
+## Class extension
+
+#!csharp
+
+// Not compatible with .NET Notebook unfortunately
+// https://github.com/dotnet/interactive/issues/2006 
+public static class StringExtension
+{
+    public static string Shout(this string str)
+    {
+        return $"{str.ToUpper()} !!";
+    }
+}
+
+Console.WriteLine("Hello".Shout())

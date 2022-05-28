@@ -1,0 +1,57 @@
+#!markdown
+
+# .NET IO notebook
+
+#!markdown
+
+## Drive management
+
+`System.IO.DriveInfo` allow to get information about the current drive or mounting points
+And it's completely cross-platform :)
+
+#!csharp
+
+var drives = System.IO.DriveInfo.GetDrives();
+
+foreach(var drive in drives)
+{
+    Console.WriteLine($"{drive.Name} is {drive.DriveType} formatted as {drive.DriveFormat}");
+}
+
+#!markdown
+
+## Special Folders
+
+Special folder are special named folder that could be relevant to use in your application.
+
+This includes for example home directory, temporary directory, etc..
+
+Note that not all of them point to something, a lot are legacy one that would only work on Windows and don't make much sense anywhere else.
+
+#!csharp
+
+using static System.Environment;
+
+foreach (string folderName in Enum.GetNames(typeof(SpecialFolder)))
+{
+    Console.WriteLine($"SpecialFolder.{folderName} points to {GetFolderPath((SpecialFolder)Enum.Parse(typeof(SpecialFolder), folderName))}");
+}
+
+#!markdown
+
+## File attributes
+
+#!csharp
+
+// Create a temporary file and get the info about it
+using System.IO;
+
+var tmpFile = Path.GetTempFileName();
+var fileInfo = new FileInfo(tmpFile);
+Console.WriteLine(fileInfo);
+
+// Write stuff in file
+using (var sw = fileInfo.CreateText())
+{
+    sw.WriteLine("Hello World");
+}
